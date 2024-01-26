@@ -1,6 +1,10 @@
-export const addComma = (num) => {
-  const result = Number(num).toLocaleString();
-  return result;
+export const addComma = (input) => {
+  const numWithoutComma = typeof input === 'string' ? input.replace(/,/g, '') : input;
+
+  const parts = numWithoutComma.toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  let result = parts.join('.');
+  return result
 };
 
 export const getNumberIntervals = (inputset) => {
