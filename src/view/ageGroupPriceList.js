@@ -1,10 +1,12 @@
-import { Container } from "@mui/material";
+import { Grid } from "@mui/material";
 import PriceInput from "../component/PriceInput";
+import AgeGroupSelect from "../component/AgeGroupSelect"
 const ageGroupPriceList = () => {
   return (
-    <Container>
+    <Grid container minWidth={1000}>
       <PriceInput />
-    </Container>
+      <AgeGroupSelect/>
+    </Grid>
   );
 };
 export default ageGroupPriceList;
