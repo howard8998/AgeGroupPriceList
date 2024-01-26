@@ -6,7 +6,8 @@ import React, { useState } from "react";
 
 const PriceInput = () => {
   const [inputValue, setInputValue] = useState("0");
-  const [inputError, setInputError] = useState(false);
+  const [inputFormatError, setInputFormatError] = useState(false);
+  const [inputNullError, setInputNullError] = useState(false);
 
   let timeoutId;
 
@@ -18,12 +19,20 @@ const PriceInput = () => {
 
     // 使用防抖動來解決中文輸入法會導致觸發不正確的 onchange
     timeoutId = setTimeout(() => {
-      if (/^[0-9,.]*$/.test(userInput)) {
-        setInputValue(addComma(userInput));
-        setInputError(false); // 清除错误状态
-      } else {
+      if (userInput === "") {
         setInputValue(userInput);
-        setInputError(true); // 设置错误状态
+        setInputFormatError(false);
+        setInputNullError(true);
+      } else {
+        setInputNullError(false);
+        if (/^[0-9,.]*$/.test(userInput)) {
+          setInputValue(addComma(userInput));
+          setInputNullError(false);
+          setInputFormatError(false);
+        } else {
+          setInputValue(userInput);
+          setInputFormatError(true);
+        }
       }
     }, 5);
   };
@@ -35,7 +44,7 @@ const PriceInput = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        maxWidth:"350px",
+        maxWidth: "350px",
       }}
     >
       <Typography
@@ -65,18 +74,26 @@ const PriceInput = () => {
           required
           value={inputValue}
           onChange={handlePriceChange}
-          error={inputError}
         />
       </Box>
-      {inputError && (
+      {inputFormatError && (
         <Typography variant="caption" color="error">
           請輸入有效的數字、小數點或逗號
         </Typography>
       )}
-      
+      {inputNullError && (
+        <Typography variant="caption" color="error">
+          不可以為空白
+        </Typography>
+      )}
       <Typography
         variant="caption"
-        style={{ color: "GrayText", marginBottom: "10px", textAlign: "right",width:"100%"}}
+        style={{
+          color: "GrayText",
+          marginBottom: "10px",
+          textAlign: "right",
+          width: "100%",
+        }}
       >
         0表示免費
       </Typography>

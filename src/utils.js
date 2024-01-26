@@ -1,8 +1,9 @@
 export const addComma = (input) => {
+  if(input === '')return '';
   let numWithoutComma = typeof input === 'string' ? input.replace(/,/g, '') : input;
 
   // 检查首位是否为0，如果是，则移除
-  if (numWithoutComma > 0 && numWithoutComma[0] === '0') {
+  if (numWithoutComma[0] === '0') {
     numWithoutComma = numWithoutComma.slice(1);
   }
   const parts = numWithoutComma.toString().split('.');
