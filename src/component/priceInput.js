@@ -6,8 +6,8 @@ import React, { useState } from "react";
 const PriceInput = () => {
   const [inputValue, setInputValue] = useState("");
   const handlePriceChange = (event) => {
-      setInputValue(addComma(event.target.value));
     
+    setInputValue(addComma(event.target.value));
   };
   return (
     <Container
