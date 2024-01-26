@@ -1,11 +1,18 @@
 export const addComma = (input) => {
-  const numWithoutComma = typeof input === 'string' ? input.replace(/,/g, '') : input;
+  let numWithoutComma = typeof input === 'string' ? input.replace(/,/g, '') : input;
 
+  // 检查首位是否为0，如果是，则移除
+  if (numWithoutComma > 0 && numWithoutComma[0] === '0') {
+    numWithoutComma = numWithoutComma.slice(1);
+  }
   const parts = numWithoutComma.toString().split('.');
+  parts[0] = parts[0] === '' ? '0' : parts[0];
+
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  let result = parts.join('.');
-  return result
+
+  return parts.join('.');
 };
+
 
 export const getNumberIntervals = (inputset) => {
   let set = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

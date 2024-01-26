@@ -3,12 +3,31 @@ import Container from "@mui/material/Container";
 
 import { addComma } from "../utils";
 import React, { useState } from "react";
+
 const PriceInput = () => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("0");
+  const [inputError, setInputError] = useState(false);
+
+  let timeoutId;
+
   const handlePriceChange = (event) => {
-    
-    setInputValue(addComma(event.target.value));
+    const userInput = event.target.value;
+
+    // 清除上一个定时器
+    clearTimeout(timeoutId);
+
+    // 使用防抖動來解決中文輸入法會導致觸發不正確的 onchange
+    timeoutId = setTimeout(() => {
+      if (/^[0-9,.]*$/.test(userInput)) {
+        setInputValue(addComma(userInput));
+        setInputError(false); // 清除错误状态
+      } else {
+        setInputValue(userInput);
+        setInputError(true); // 设置错误状态
+      }
+    }, 5);
   };
+
   return (
     <Container
       style={{
@@ -16,8 +35,8 @@ const PriceInput = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
+        maxWidth:"350px",
       }}
-      align="left"
     >
       <Typography
         variant="caption"
@@ -38,6 +57,7 @@ const PriceInput = () => {
         >
           TWD
         </span>
+        <Box></Box>
         <TextField
           id="price"
           label="請輸入費用"
@@ -45,8 +65,21 @@ const PriceInput = () => {
           required
           value={inputValue}
           onChange={handlePriceChange}
+          error={inputError}
         />
       </Box>
+      {inputError && (
+        <Typography variant="caption" color="error">
+          請輸入有效的數字、小數點或逗號
+        </Typography>
+      )}
+      
+      <Typography
+        variant="caption"
+        style={{ color: "GrayText", marginBottom: "10px", textAlign: "right",width:"100%"}}
+      >
+        0表示免費
+      </Typography>
     </Container>
   );
 };
