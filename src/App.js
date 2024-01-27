@@ -1,5 +1,5 @@
 import "./App.css";
-import AgeGroupPriceList from "./view/AgeGroupPriceList";
+import AgeGroupPriceList from "./view/ageGroupPriceList";
 function App() {
   return (
     <div className="App">

@@ -2,15 +2,14 @@ import { Box, TextField, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 
 import { addComma } from "../utils";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const PriceInput = () => {
+const PriceInput = ({ onChange }) => {
   const [inputValue, setInputValue] = useState("0");
   const [inputFormatError, setInputFormatError] = useState(false);
   const [inputNullError, setInputNullError] = useState(false);
 
   let timeoutId;
-
   const handlePriceChange = (event) => {
     const userInput = event.target.value;
 
@@ -26,9 +25,10 @@ const PriceInput = () => {
       } else {
         setInputNullError(false);
         if (/^[0-9,.]*$/.test(userInput)) {
-          setInputValue(addComma(userInput));
-          setInputNullError(false);
+          let formatinput = addComma(userInput);
+          setInputValue(formatinput);
           setInputFormatError(false);
+          onChange(formatinput);
         } else {
           setInputValue(userInput);
           setInputFormatError(true);
@@ -36,7 +36,11 @@ const PriceInput = () => {
       }
     }, 5);
   };
-
+  useEffect(() => {
+    if (!inputFormatError && !inputNullError) {
+      onChange(inputValue);
+    }
+  },[inputFormatError,inputNullError,inputValue]);
   return (
     <Container
       style={{
