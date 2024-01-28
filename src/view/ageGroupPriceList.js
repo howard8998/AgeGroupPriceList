@@ -1,10 +1,13 @@
 import { Grid, Button } from "@mui/material";
 import PriceInput from "../component/priceInput";
 import AgeGroupSelect from "../component/ageGroupSelect";
+import { getNumberIntervals } from "../utils";
 import React, { useState, useEffect } from "react";
 import { Add, Close } from "@mui/icons-material";
 
 const AgeGroupPriceList = ({ onChange }) => {
+  const [overlap, setOverLap] = useState([]);
+  const [notInclude,setNotInclude] = useState();
   const [selectComponents, setSelectComponents] = useState([
     {
       id: 0,
@@ -49,6 +52,10 @@ const AgeGroupPriceList = ({ onChange }) => {
   useEffect(() => {
     // 短暫延遲避免重複回傳result
     const timeoutId = setTimeout(() => {
+      const ageGroupSets = selectComponents.map(({ ageGroup }) => ageGroup);
+      const { overlap ,notInclude} = getNumberIntervals(ageGroupSets);
+      setOverLap(overlap);
+      setNotInclude(notInclude);
       const result = selectComponents.map(({ ageGroup, price }) => ({
         ageGroup,
         price,
@@ -76,7 +83,7 @@ const AgeGroupPriceList = ({ onChange }) => {
               onChange={(newPrice) => handlePriceChange(newPrice, index)}
             />
             <AgeGroupSelect
-              overlap={[]}
+              overlap={overlap}
               onChange={(newAgeGroup) =>
                 handleAgeGroupChange(newAgeGroup, index)
               }
@@ -107,6 +114,7 @@ const AgeGroupPriceList = ({ onChange }) => {
           startIcon={<Add />}
           onClick={handleAddSelectClick}
           style={{ marginLeft: "35px" }}
+          disabled={notInclude?.length === 0}
         >
           新增價格設定
         </Button>
