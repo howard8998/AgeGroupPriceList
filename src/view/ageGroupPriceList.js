@@ -7,7 +7,7 @@ import { Add, Close } from "@mui/icons-material";
 
 const AgeGroupPriceList = ({ onChange }) => {
   const [overlap, setOverLap] = useState([]);
-  const [notInclude,setNotInclude] = useState();
+  const [notInclude, setNotInclude] = useState();
   const [selectComponents, setSelectComponents] = useState([
     {
       id: 0,
@@ -53,7 +53,7 @@ const AgeGroupPriceList = ({ onChange }) => {
     // 短暫延遲避免重複回傳result
     const timeoutId = setTimeout(() => {
       const ageGroupSets = selectComponents.map(({ ageGroup }) => ageGroup);
-      const { overlap ,notInclude} = getNumberIntervals(ageGroupSets);
+      const { overlap, notInclude } = getNumberIntervals(ageGroupSets);
       setOverLap(overlap);
       setNotInclude(notInclude);
       const result = selectComponents.map(({ ageGroup, price }) => ({
@@ -74,11 +74,15 @@ const AgeGroupPriceList = ({ onChange }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
+        marginLeft:"50px"
       }}
     >
       {selectComponents.map((select, index) => (
-        <div key={select.id}>
-          <Grid container minWidth={1000} key={select.id} spacing={0}>
+        <div
+          key={select.id}
+          style={{ borderBottom: "1px solid ",borderColor:'lightgray', marginBottom: "20px" }}
+        >
+          <Grid container minWidth={900} key={select.id} spacing={0}>
             <PriceInput
               onChange={(newPrice) => handlePriceChange(newPrice, index)}
             />
