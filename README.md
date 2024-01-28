@@ -1,4 +1,43 @@
-# Getting Started with Create React App
+# AgeGroupPriceListUI
+
+此UI提供以下功能
+提供介面給用戶選擇各年齡區間可對應到的價格，預設為0到20歲，重複選取年齡區尖石會提示錯誤，同時輸入不合格式之價格也會跳錯並防止傳入。
+
+## 技術堆疊
+
+react,mui
+
+## 檔案架構
+
+```bash
++---public //靜態資源
+|       favicon.ico
+|       index.html
+|       logo192.png
+|       logo512.png
+|       manifest.json
+|       robots.txt
+|       
+\---src
+    |   App.css
+    |   App.js //主程式
+    |   App.test.js
+    |   index.css
+    |   index.js //進入點
+    |   logo.svg
+    |   reportWebVitals.js
+    |   setupTests.js
+    |   utils.js //存放工具getNumberIntervals 跟 addComma的位置
+    |   
+    +---component
+    |       ageGroupSelect.js //選擇年齡區間組件
+    |       priceInput.js //輸入價格組件
+    |       
+    \---view
+            ageGroupPriceList.js //主要元件
+```
+
+## 以下為運行說明
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
