@@ -26,14 +26,13 @@ const AgeGroupSelect = ({ overlap, onChange }) => {
       setIsOverLap(hasOverlap);
     }
   }, [overlap, minAge, maxAge]);
-  useEffect(
-    () => {
-      setAgeGroupSelect([minAge, maxAge]);
-      onChange(ageGroupSelect);
-    },
-    [minAge,
-    maxAge,ageGroupSelect]
-  );
+  useEffect(() => {
+    setAgeGroupSelect([minAge, maxAge]);
+  }, [minAge, maxAge]);
+  
+  useEffect(() => {
+    onChange(ageGroupSelect);
+  }, [ageGroupSelect]);
   const handleMinAgeChange = (e) => {
     setMinAge(e.target.value);
   };

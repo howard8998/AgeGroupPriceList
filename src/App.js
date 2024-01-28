@@ -3,7 +3,7 @@ import AgeGroupPriceList from "./view/ageGroupPriceList";
 function App() {
   return (
     <div className="App">
-      <AgeGroupPriceList />
+      <AgeGroupPriceList onChange={result => console.log(result)}/>
     </div>
   );
 }

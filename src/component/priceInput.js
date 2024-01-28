@@ -34,7 +34,7 @@ const PriceInput = ({ onChange }) => {
           setInputFormatError(true);
         }
       }
-    }, 5);
+    }, 50);
   };
   useEffect(() => {
     if (!inputFormatError && !inputNullError) {
@@ -70,7 +70,6 @@ const PriceInput = ({ onChange }) => {
         >
           TWD
         </span>
-        <Box></Box>
         <TextField
           id="price"
           label="請輸入費用"
