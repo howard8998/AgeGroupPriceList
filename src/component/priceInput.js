@@ -34,7 +34,7 @@ const PriceInput = ({ onChange }) => {
           setInputFormatError(true);
         }
       }
-    }, 50);
+    }, 5);
   };
   useEffect(() => {
     if (!inputFormatError && !inputNullError) {
@@ -81,7 +81,7 @@ const PriceInput = ({ onChange }) => {
       </Box>
       {inputFormatError && (
         <Typography variant="caption" color="error">
-          請輸入有效的數字、小數點或逗號
+          請輸入有效的數字
         </Typography>
       )}
       {inputNullError && (

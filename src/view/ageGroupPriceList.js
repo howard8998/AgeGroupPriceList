@@ -61,7 +61,7 @@ const AgeGroupPriceList = ({ onChange }) => {
         price,
       }));
       onChange(result);
-    }, 50);
+    }, 5);
 
     return () => {
       clearTimeout(timeoutId);
